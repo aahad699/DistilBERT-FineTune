@@ -1,36 +1,32 @@
-# 🚀 DistilBERT-FineTune
+# DistilBERT Fine-Tuning for Sentiment Analysis
 
-Fine-tuning **DistilBERT** for **IMDb Movie Review Sentiment Analysis** using the Hugging Face Transformers library. This project also compares a traditional Machine Learning baseline (TF-IDF + Logistic Regression) with a transformer-based approach.
+A Natural Language Processing (NLP) project demonstrating fine-tuning of DistilBERT for binary sentiment classification on the IMDb Movie Reviews dataset using the Hugging Face Transformers library.
 
----
+## Overview
 
-## 📌 Project Overview
-
-This project demonstrates how to fine-tune **DistilBERT** for binary text classification (Positive vs Negative sentiment) on the IMDb dataset.
+This project compares a traditional machine learning approach with a transformer-based model for sentiment analysis.
 
 The workflow includes:
 
-- Dataset exploration
-- Data visualization
-- Baseline ML model
-- DistilBERT fine-tuning
-- Model evaluation
-- Performance comparison
+- Exploratory Data Analysis (EDA)
+- Text preprocessing
+- Baseline model using TF-IDF and Logistic Regression
+- Fine-tuning DistilBERT
+- Model evaluation and comparison
 - Saving the trained model
-- Sentiment prediction using Hugging Face Pipeline
+- Inference using the Hugging Face Pipeline
 
 ---
 
-## 📂 Dataset
+## Dataset
 
-**Dataset:** IMDb Movie Reviews
+The project uses the IMDb Movie Reviews dataset from the Hugging Face Datasets library.
 
 - 50,000 movie reviews
 - Binary sentiment classification
-- 25,000 training samples
-- 25,000 testing samples
+- Balanced positive and negative samples
 
-Loaded directly from Hugging Face Datasets:
+Dataset loading:
 
 ```python
 from datasets import load_dataset
@@ -40,69 +36,21 @@ dataset = load_dataset("stanfordnlp/imdb")
 
 ---
 
-## 🧠 Models
+## Models
 
-### Baseline Model
+### Baseline
 
 - TF-IDF Vectorizer
 - Logistic Regression
 
-### Transformer Model
+### Transformer
 
 - DistilBERT (`distilbert-base-uncased`)
-- Fine-tuned using Hugging Face Trainer API
+- Fine-tuned using the Hugging Face Trainer API
 
 ---
 
-## 📊 Evaluation Metrics
-
-Both models are evaluated using:
-
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- Classification Report
-- Confusion Matrix
-
----
-
-## 📈 Project Pipeline
-
-```text
-IMDb Dataset
-      │
-      ▼
-Exploratory Data Analysis
-      │
-      ▼
-TF-IDF + Logistic Regression (Baseline)
-      │
-      ▼
-Evaluate Baseline
-      │
-      ▼
-Tokenization
-      │
-      ▼
-Fine-tune DistilBERT
-      │
-      ▼
-Evaluate Model
-      │
-      ▼
-Compare Results
-      │
-      ▼
-Save Model
-      │
-      ▼
-Inference Pipeline
-```
-
----
-
-## 🛠️ Technologies Used
+## Technologies Used
 
 - Python
 - PyTorch
@@ -116,25 +64,44 @@ Inference Pipeline
 
 ---
 
-## 📦 Installation
+## Installation
 
 Clone the repository:
 
 ```bash
 git clone https://github.com/your-username/DistilBERT-FineTune.git
-
 cd DistilBERT-FineTune
 ```
 
-Install dependencies:
+Install the required dependencies:
 
 ```bash
-pip install transformers datasets accelerate scikit-learn matplotlib pandas torch
+pip install -r requirements.txt
+```
+
+Alternatively:
+
+```bash
+pip install transformers datasets accelerate torch scikit-learn pandas matplotlib
 ```
 
 ---
 
-## ▶️ Running the Notebook
+## Project Structure
+
+```
+DistilBERT-FineTune/
+│
+├── DistilBERT_Notebook.ipynb
+├── README.md
+├── requirements.txt
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+## Running the Project
 
 Open the notebook:
 
@@ -142,27 +109,44 @@ Open the notebook:
 DistilBERT_Notebook.ipynb
 ```
 
-Run all cells in order.
+Run all cells sequentially.
 
-The notebook will:
+The notebook performs:
 
-- Load the dataset
-- Train the baseline model
-- Fine-tune DistilBERT
-- Evaluate performance
-- Save the trained model
+1. Dataset loading
+2. Exploratory Data Analysis
+3. Baseline model training
+4. DistilBERT fine-tuning
+5. Model evaluation
+6. Saving the trained model
+7. Sample predictions
 
 ---
 
-## 💾 Saved Model
+## Model Evaluation
 
-After training, the model is saved locally as:
+The following metrics are used to evaluate both models:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- Classification Report
+- Confusion Matrix
+
+The notebook compares the performance of the baseline model against the fine-tuned DistilBERT model.
+
+---
+
+## Saving the Model
+
+After training, the model is saved locally:
 
 ```
 sentiment_model/
 ```
 
-You can reload it using:
+Reload the model using:
 
 ```python
 from transformers import pipeline
@@ -173,17 +157,13 @@ classifier = pipeline(
 )
 ```
 
----
-
-## 💬 Example Prediction
+Example:
 
 ```python
-classifier(
-    "This movie was absolutely amazing!"
-)
+classifier("This movie was absolutely fantastic.")
 ```
 
-Example output:
+Output:
 
 ```text
 [{'label': 'POSITIVE', 'score': 0.998}]
@@ -191,72 +171,29 @@ Example output:
 
 ---
 
-## 📊 Results
+## Future Improvements
 
-The notebook compares:
-
-| Model | Accuracy | Precision | Recall | F1 Score |
-|--------|----------|-----------|--------|----------|
-| TF-IDF + Logistic Regression | ✔ | ✔ | ✔ | ✔ |
-| DistilBERT (Fine-tuned) | ✔ | ✔ | ✔ | ✔ |
-
-> DistilBERT generally achieves higher performance than the traditional machine learning baseline while leveraging contextual language understanding.
-
----
-
-## 📁 Repository Structure
-
-```
-DistilBERT-FineTune/
-│
-├── DistilBERT_Notebook.ipynb
-├── README.md
-└── sentiment_model/        # Generated after training
-```
-
----
-
-## 🎯 Learning Outcomes
-
-This project demonstrates:
-
-- Text preprocessing
-- Exploratory Data Analysis (EDA)
-- Baseline NLP classification
-- Transformer fine-tuning
-- Hugging Face Trainer API
-- Model evaluation
-- Model saving & inference
-
----
-
-## 🚀 Future Improvements
+Potential enhancements include:
 
 - Hyperparameter tuning
 - Early stopping
 - Mixed precision training
-- Experiment tracking (Weights & Biases)
-- Deploy as a REST API using FastAPI
+- Experiment tracking with Weights & Biases
+- FastAPI deployment
 - Docker containerization
 - Streamlit or Gradio interface
-- Hugging Face Hub deployment
+- Deployment on Hugging Face Hub
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome!
-
-Feel free to fork the repository, open issues, or submit pull requests.
-
----
-
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
 ---
 
-## ⭐ Support
+## Acknowledgements
 
-If you found this project helpful, consider giving it a ⭐ on GitHub!
+- Hugging Face Transformers
+- Hugging Face Datasets
+- Stanford AI Lab (IMDb Dataset)
